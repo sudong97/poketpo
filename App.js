@@ -1,7 +1,12 @@
 import { StatusBar } from "expo-status-bar";
-import { Image, StyleSheet, Text, View } from "react-native";
+import { Image, StyleSheet, Text, View, Button } from "react-native";
+import * as React from "react";
+import { NavigationContainer } from "@react-navigation/native";
+import { createNativeStackNavigator } from "@react-navigation/native-stack";
 
-export default function App() {
+const Stack = createNativeStackNavigator();
+
+const HomeScreen = ({ navigation }) => {
   return (
     <View style={styles.container}>
       <View style={styles.item_txt}>
@@ -23,30 +28,58 @@ export default function App() {
           </View>
         </View>
       </View>
+
       <View style={styles.footbar}>
         <View style={styles.home_nav}>
-          <Image
-            source={require("sideproject1/assets/images/ant-design_home-filled.png")}
+          <Button
+            title="Home"
+            onPress={() => navigation.navigate("Home", { name: "Home" })}
           />
         </View>
         <View style={styles.list_nav}>
-          <Image
-            source={require("sideproject1/assets/images/foundation_list.png")}
+          <Button
+            title="List"
+            onPress={() => navigation.navigate("List", { name: "List" })}
           />
         </View>
         <View style={styles.setting_nav}>
-          <Image
-            source={require("sideproject1/assets/images/bxs_bar-chart-alt-2.png")}
+          <Button
+            title="Setting"
+            onPress={() => navigation.navigate("Setting", { name: "Setting" })}
           />
         </View>
         <View style={styles.addItem_nav}>
-          <Image
-            source={require("sideproject1/assets/images/akar-icons_circle-plus-fill.png")}
+          <Button
+            title="AddItem"
+            onPress={() => navigation.navigate("AddItem", { name: "AddItem" })}
           />
         </View>
       </View>
+
       <StatusBar style={"black"} />
     </View>
+  );
+};
+const List = ({ navigation, route }) => {
+  return <Text>This is List</Text>;
+};
+const Setting = ({ navigation, route }) => {
+  return <Text>This is Setting</Text>;
+};
+const AddItem = ({ navigation, route }) => {
+  return <Text>This is AddItem</Text>;
+};
+
+export default function App() {
+  return (
+    <NavigationContainer>
+      <Stack.Navigator>
+        <Stack.Screen name="Home" component={HomeScreen} />
+        <Stack.Screen name="List" component={List} />
+        <Stack.Screen name="Setting" component={Setting} />
+        <Stack.Screen name="AddItem" component={AddItem} />
+      </Stack.Navigator>
+    </NavigationContainer>
   );
 }
 
