@@ -6,7 +6,7 @@ import { createNativeStackNavigator } from "@react-navigation/native-stack";
 
 const Stack = createNativeStackNavigator();
 
-const HomeScreen = ({ navigation }) => {
+export default function App() {
   return (
     <View style={styles.container}>
       <View style={styles.item_txt}>
@@ -31,55 +31,29 @@ const HomeScreen = ({ navigation }) => {
 
       <View style={styles.footbar}>
         <View style={styles.home_nav}>
-          <Button
-            title="Home"
-            onPress={() => navigation.navigate("Home", { name: "Home" })}
+          <Image
+            source={require("sideproject1/assets/images/ant-design_home-filled.png")}
           />
         </View>
         <View style={styles.list_nav}>
-          <Button
-            title="List"
-            onPress={() => navigation.navigate("List", { name: "List" })}
+          <Image
+            source={require("sideproject1/assets/images/foundation_list.png")}
           />
         </View>
         <View style={styles.setting_nav}>
-          <Button
-            title="Setting"
-            onPress={() => navigation.navigate("Setting", { name: "Setting" })}
+          <Image
+            source={require("sideproject1/assets/images/bxs_bar-chart-alt-2.png")}
           />
         </View>
         <View style={styles.addItem_nav}>
-          <Button
-            title="AddItem"
-            onPress={() => navigation.navigate("AddItem", { name: "AddItem" })}
+          <Image
+            source={require("sideproject1/assets/images/akar-icons_circle-plus-fill.png")}
           />
         </View>
       </View>
 
       <StatusBar style={"black"} />
     </View>
-  );
-};
-const List = ({ navigation, route }) => {
-  return <Text>This is List</Text>;
-};
-const Setting = ({ navigation, route }) => {
-  return <Text>This is Setting</Text>;
-};
-const AddItem = ({ navigation, route }) => {
-  return <Text>This is AddItem</Text>;
-};
-
-export default function App() {
-  return (
-    <NavigationContainer>
-      <Stack.Navigator>
-        <Stack.Screen name="Home" component={HomeScreen} />
-        <Stack.Screen name="List" component={List} />
-        <Stack.Screen name="Setting" component={Setting} />
-        <Stack.Screen name="AddItem" component={AddItem} />
-      </Stack.Navigator>
-    </NavigationContainer>
   );
 }
 
