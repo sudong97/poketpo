@@ -10,6 +10,7 @@ import List from "./src/pages/List";
 import PlusItem from "./src/pages/PlusItem";
 import Setting from "./src/pages/Setting";
 import Backup from "./src/pages/Backup";
+import EditHome from "./src/pages/EditHome";
 
 export default function App() {
   const Stack = createNativeStackNavigator();
@@ -52,6 +53,7 @@ export default function App() {
             )}
           />
           <Stack.Screen name="Setting" component={Setting} />
+          <Stack.Screen name="EditHome" component={EditHome} />
           <Stack.Screen name="Backup" component={Backup} />
         </Stack.Group>
       </Stack.Navigator>
