@@ -78,10 +78,10 @@ const styles = StyleSheet.create({
     backgroundColor: "#fff",
   },
   txt: {
-    height: 1140,
+    height: 640,
   },
   header: { flex: 1, justifyContent: "center", alignItems: "center" },
-  main: { flex: 1, justifyContent: "center", alignItems: "center" },
+  main: { flex: 5, justifyContent: "center", alignItems: "center" },
   footbar: {
     flex: 1.5,
     backgroundColor: "orange",

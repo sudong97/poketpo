@@ -1,4 +1,5 @@
 import { StatusBar } from "expo-status-bar";
+
 import {
   Image,
   StyleSheet,
@@ -8,17 +9,22 @@ import {
   TextInput,
   ScrollView,
   TouchableHighlight,
+  TouchableOpacity,
 } from "react-native";
-import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import React, { useState } from "react";
-import { NavigationContainer } from "@react-navigation/native";
-import { theme } from "../../color";
 
-export default function PlusItem({ onCreate, navigation, route, setData }) {
+import PlusItemHeader from "../component/PlusItemHeader";
+import PlusItem_Item from "../component/PlusItemItem";
+import SeasonItem from "../component/SeasonItem";
+
+export default function PlusItem({ onCreate, navigation }) {
   const [item_name, setItem_Name] = useState("");
   const [memo, setMemo] = React.useState("jisu good");
   const [season, setSeason] = useState("spring");
 
+  const handleSeasonClick = (season) => {
+    setSeason(season);
+  };
   //포켓에 넣기 버튼
   const handlesubmit = () => {
     onCreate(item_name, memo, season);
@@ -29,39 +35,12 @@ export default function PlusItem({ onCreate, navigation, route, setData }) {
   return (
     <ScrollView style={styles.container}>
       <View style={styles.back}>
-        <View style={styles.back_button}>
-          <Button
-            title="<"
-            color="black"
-            onPress={() => navigation.navigate("Home", { name: "Home" })}
-          />
-        </View>
-        <View style={styles.main}>
-          <Text stlye={styles.maintxt}>아이템 등록하기</Text>
-        </View>
+        <PlusItemHeader navigation={navigation} />
       </View>
 
       {/* 아이템 등록  */}
-      <View style={styles.item_edit}>
-        <Text>아이템</Text>
-        <View style={styles.item_item}>
-          <View style={styles.item_image}>
-            <Image
-              style={styles.item_imagee}
-              source={require("poketpo2/assets/images/sample_item_image.png")}
-            />
-          </View>
-          <View>
-            <TextInput
-              multiline
-              name="item_name"
-              value={item_name}
-              onChangeText={setItem_Name}
-              style={styles.item_name}
-              returnKeyType="done"
-            />
-          </View>
-        </View>
+      <View>
+        <PlusItem_Item item_name={item_name} setItem_Name={setItem_Name} />
       </View>
 
       {/* 포켓 선택 */}
@@ -72,53 +51,39 @@ export default function PlusItem({ onCreate, navigation, route, setData }) {
       {/* 계절 항목 */}
       <View style={styles.season}>
         <Text>계절</Text>
-        <View style={styles.seasonImage}>
-          <TouchableHighlight
-            activeOpacity={0.9}
-            style={styles.srping_touch}
-            underlayColor="green"
-            onPress={() => setSeason("spring")}
-          >
-            <Image
-              style={styles.spring}
-              source={require("poketpo2/assets/images/spring.png")}
+        <View style={styles.seasonbox}>
+          <View>
+            <SeasonItem
+              season={"spring"}
+              onPress={handleSeasonClick}
+              isSelected={season === "spring"}
             />
-          </TouchableHighlight>
-          <TouchableHighlight
-            activeOpacity={0.9}
-            style={styles.summer_touch}
-            underlayColor="blue"
-            onPress={() => setSeason("summer")}
-          >
-            <Image
-              style={styles.summer}
-              source={require("poketpo2/assets/images/summer.png")}
+          </View>
+          <View>
+            <SeasonItem
+              season={"summer"}
+              onPress={handleSeasonClick}
+              isSelected={season === "summer"}
             />
-          </TouchableHighlight>
-          <TouchableHighlight
-            activeOpacity={0.9}
-            style={styles.fall_touch}
-            underlayColor="orange"
-            onPress={() => setSeason("fall")}
-          >
-            <Image
-              style={styles.fall}
-              source={require("poketpo2/assets/images/fall.png")}
+          </View>
+          <View>
+            <SeasonItem
+              season={"fall"}
+              onPress={handleSeasonClick}
+              isSelected={season === "fall"}
             />
-          </TouchableHighlight>
-          <TouchableHighlight
-            activeOpacity={0.9}
-            style={styles.winter_touch}
-            underlayColor="gray"
-            onPress={() => setSeason("winter")}
-          >
-            <Image
-              style={styles.winter}
-              source={require("poketpo2/assets/images/winter.png")}
+          </View>
+          <View>
+            <SeasonItem
+              season={"winter"}
+              onPress={handleSeasonClick}
+              isSelected={season === "winter"}
             />
-          </TouchableHighlight>
+          </View>
         </View>
       </View>
+
+      {/* 왜 샀지 테그 항목 */}
       <View style={styles.buyWhy}>
         <Text>왜 샀지</Text>
       </View>
@@ -161,38 +126,6 @@ const styles = StyleSheet.create({
     padding: 10,
     flexDirection: "row",
   },
-  back_button: { flex: 1 },
-  main: {
-    flex: 5,
-    justifyContent: "center",
-    alignItems: "center",
-  },
-  item_edit: {
-    height: 120,
-    backgroundColor: "white",
-    borderRadius: 30,
-    marginVertical: 10,
-    padding: 20,
-    paddingHorizontal: 30,
-  },
-  item_item: {
-    paddingTop: 10,
-    flexDirection: "row",
-    justifyContent: "space-around",
-  },
-  item_image: {},
-  item_imagee: {},
-  item_name: {
-    backgroundColor: "#EAEAEA",
-    padding: 20,
-    paddingTop: 16,
-    margin: 5,
-    marginLeft: 25,
-    width: 220,
-    height: 50,
-    borderRadius: 20,
-    color: "black",
-  },
   poket: {
     height: 180,
     backgroundColor: "white",
@@ -210,6 +143,7 @@ const styles = StyleSheet.create({
     padding: 20,
     paddingHorizontal: 30,
   },
+  seasonbox: { flexDirection: "row" },
   seasonImage: {
     paddingTop: 2,
     flexDirection: "row",
