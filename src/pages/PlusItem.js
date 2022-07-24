@@ -11,25 +11,54 @@ import {
   TouchableHighlight,
   TouchableOpacity,
 } from "react-native";
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 
 import PlusItemHeader from "../component/PlusItemHeader";
 import PlusItem_Item from "../component/PlusItemItem";
 import SeasonItem from "../component/SeasonItem";
+import TagItem from "../component/TagItem";
 
 export default function PlusItem({ onCreate, navigation }) {
   const [item_name, setItem_Name] = useState("");
   const [memo, setMemo] = React.useState("jisu good");
   const [season, setSeason] = useState("spring");
+  const [select, setSelect] = useState([
+    false, false, false, false, false, false, false, false, false, false,
+  ])
+  let copyArray = [...select]
+  const [tagData, setTagData] = useState([
+    {title: '입으면 완전 편해', id: 1}, 
+    {title: '핏이 예뻐', id: 2},
+    {title: '색이 찰떡', id: 3},
+    {title: '필요해서', id: 4},
+    {title: '세일 득템', id: 5},
+    {title: '코디하기 좋아서', id: 6},
+    {title: '휘뚜루마뚜루', id: 7},
+    {title: '재질이 좋아서', id: 8},
+    {title: '그냥', id: 9},
+    {title: '유튜브 보고', id: 10}
+  ])
+  const [text, setText] = useState("")
+  const tagDataId = useRef(tagData.length+1)
 
   const handleSeasonClick = (season) => {
     setSeason(season);
   };
+
+  
+
   //포켓에 넣기 버튼
   const handlesubmit = () => {
     onCreate(item_name, memo, season);
     alert(memo);
     navigation.navigate("Home", { name: "Home" });
+  };
+  
+  const onCreateTag = (title) => {
+    const newTag = {title, id: tagDataId.current};
+    tagDataId.current += 1;
+    setTagData([...tagData, newTag]);
+    setSelect([...select, false])
   };
 
   return (
@@ -83,10 +112,21 @@ export default function PlusItem({ onCreate, navigation }) {
         </View>
       </View>
 
-      {/* 왜 샀지 테그 항목 */}
+      {/* 왜 샀지 태그 항목 */}
       <View style={styles.buyWhy}>
         <Text>왜 샀지</Text>
+        <View style={{flexDirection: 'row', flexWrap: 'wrap'}}>
+        <View style={styles.tagContainer}>
+          {tagData.map((item, index) => (
+            <TagItem key={index} title={item.title} id={item.id} type={'default'} select={select} setSelect={setSelect} copyArray={copyArray} onCreateTag={onCreateTag}/>
+          ))}
+        </View>
+        <TagItem title={'태그 추가'} type={'adding'} text={text} setText={setText}/>
+        <Button title='추가하기' onPress={() => onCreateTag(text)}/>
+        </View>
       </View>
+
+      {/* 메모 항목 */}
       <View style={styles.memo}>
         <Text>메모</Text>
         <TextInput
@@ -114,7 +154,7 @@ export default function PlusItem({ onCreate, navigation }) {
       </View>
     </ScrollView>
   );
-}
+  }
 
 const styles = StyleSheet.create({
   container: { flex: 1, backgroundColor: "#EAEAEA", padding: 30 },
@@ -158,12 +198,22 @@ const styles = StyleSheet.create({
   winter: { width: 50, height: 50 },
   winter_touch: { borderRadius: 30, padding: 10 },
   buyWhy: {
-    height: 200,
+    minHeight: 210,
+    maxHeight: 400,
     backgroundColor: "white",
     borderRadius: 30,
     marginVertical: 10,
     padding: 20,
     paddingHorizontal: 30,
+  },
+  buttonLayout: {
+    marginBottom: 10
+  },
+  tagContainer: {
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+    marginTop: 10,
+    marginBottom: 10,
   },
   memo: {
     height: 120,
