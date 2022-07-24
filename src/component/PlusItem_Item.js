@@ -1,16 +1,29 @@
-import { Image, TextInput, View, StyleSheet, Text } from "react-native";
+import {
+  TouchableOpacity,
+  Image,
+  TextInput,
+  View,
+  StyleSheet,
+  Text,
+} from "react-native";
 import React, { useState } from "react";
 
-const PlusItem_Item = ({ item_name, setItem_Name }) => {
+const PlusItem_Item = ({ navigation, item_name, setItem_Name }) => {
   return (
     <View style={styles.item_edit}>
       <Text>아이템</Text>
       <View style={styles.item_item}>
         <View style={styles.item_image}>
-          <Image
-            style={styles.item_imagee}
-            source={require("poketpo2/assets/images/sample_item_image.png")}
-          />
+          <TouchableOpacity
+            onPress={() =>
+              navigation.navigate("EditItem", { name: "EditItem" })
+            }
+          >
+            <Image
+              style={styles.item_imagee}
+              source={require("poketpo2/assets/images/sample_item_image.png")}
+            />
+          </TouchableOpacity>
         </View>
         <View>
           <TextInput
