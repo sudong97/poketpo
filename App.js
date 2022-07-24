@@ -11,6 +11,8 @@ import PlusItem from "./src/pages/PlusItem";
 import Setting from "./src/pages/Setting";
 import Backup from "./src/pages/Backup";
 import EditHome from "./src/pages/EditHome";
+import EditItem from "./src/pages/EditItem";
+import EditPoket from "./src/pages/EditPoket";
 
 export default function App() {
   const Stack = createNativeStackNavigator();
@@ -18,12 +20,13 @@ export default function App() {
   const dataId = useRef(0);
 
   const [data, setData] = useState([]);
-  const onCreate = (item_name, memo, season) => {
+  const onCreate = (item_name, memo, season, poket) => {
     const created_date = new Date().getTime();
     const newItem = {
       item_name,
       memo,
       season,
+      poket,
       created_date,
       id: dataId.current,
     };
@@ -55,6 +58,8 @@ export default function App() {
           <Stack.Screen name="Setting" component={Setting} />
           <Stack.Screen name="EditHome" component={EditHome} />
           <Stack.Screen name="Backup" component={Backup} />
+          <Stack.Screen name="EditItem" component={EditItem} />
+          <Stack.Screen name="EditPoket" component={EditPoket} />
         </Stack.Group>
       </Stack.Navigator>
     </NavigationContainer>

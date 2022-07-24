@@ -11,7 +11,7 @@ import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import React, { useState } from "react";
 import { NavigationContainer } from "@react-navigation/native";
 import { theme } from "../../color";
-import ListItem from "./ListItem";
+import ListItem from "../component/ListItem";
 
 export default function List({ navigation, route, diaryList }) {
   return (
