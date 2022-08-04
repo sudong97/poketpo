@@ -9,20 +9,20 @@ import {
   ScrollView,
   TouchableHighlight,
 } from "react-native";
-import React, { useState } from "react";
+import React from "react";
 
-const SeasonItem = ({ season, onPress, isSelected }) => {
+const SeasonItem = ({ seasonValue, onPress, isSelected }) => {
   const a = {
-    spring: require("../../assets/images/spring.png"),
-    summer: require("../../assets/images/summer.png"),
-    fall: require("../../assets/images/fall.png"),
-    winter: require("../../assets/images/winter.png"),
+    'spring': require("../../assets/images/spring.png"),
+    'summer': require("../../assets/images/summer.png"),
+    'fall': require("../../assets/images/fall.png"),
+    'winter': require("../../assets/images/winter.png"),
   };
 
   return (
-    <TouchableOpacity onPress={() => onPress(season)}>
+    <TouchableOpacity onPress={() => onPress(seasonValue)}>
       <Image
-        source={a[`${season}`]}
+        source={a[`${seasonValue}`]}
         style={[
           styles.season,
           { backgroundColor: isSelected ? `purple` : `white` },

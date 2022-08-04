@@ -21,46 +21,62 @@ import TagItem from "../component/TagItem";
 export default function PlusItem({ onCreate, navigation }) {
   const [item_name, setItem_Name] = useState("");
   const [memo, setMemo] = React.useState("jisu good");
-  const [season, setSeason] = useState("spring");
-  const [select, setSelect] = useState([
-    false, false, false, false, false, false, false, false, false, false,
-  ])
-  let copyArray = [...select]
-  const [tagData, setTagData] = useState([
-    {title: '입으면 완전 편해', id: 1}, 
-    {title: '핏이 예뻐', id: 2},
-    {title: '색이 찰떡', id: 3},
-    {title: '필요해서', id: 4},
-    {title: '세일 득템', id: 5},
-    {title: '코디하기 좋아서', id: 6},
-    {title: '휘뚜루마뚜루', id: 7},
-    {title: '재질이 좋아서', id: 8},
-    {title: '그냥', id: 9},
-    {title: '유튜브 보고', id: 10}
-  ])
-  const [text, setText] = useState("")
-  const tagDataId = useRef(tagData.length+1)
-
-  const handleSeasonClick = (season) => {
-    setSeason(season);
-  };
-
+  const [finalSeasonArray, setFinalSeasonArray] = useState([])
   
+  const [season, setSeason] = useState({
+    'spring': { id: 1, 'select': false, 'name': '봄' },
+    'summer': { id: 2, 'select': false, 'name': '여름'},
+    'fall': { id: 3, 'select': false, 'name': '가을' },
+    'winter': { id: 4, 'select': false, 'name': '겨울' },
+  });
+  let copySeasonObject = {...season};
+
+
+  const [tagData, setTagData] = useState([
+    {title: '입으면 완전 편해', id: 1, select: false},
+    {title: '핏이 예뻐', id: 2, select: false},
+    {title: '색이 찰떡', id: 3, select: false}, 
+    {title: '필요해서', id: 4, select: false},
+    {title: '세일 득템', id: 5, select: false},
+    {title: '코디하기 좋아서', id: 6, select: false},
+    {title: '휘뚜루마뚜루', id: 7, select: false},
+    {title: '재질이 좋아서', id: 8, select: false},
+    {title: '그냥', id: 9, select: false},
+    {title: '유튜브 보고', id: 10, select: false},
+  ]);
+  let copyTagData = [...tagData];
+
+  const [finalTagArray, setFinalTagArray] = useState([])
+  const [text, setText] = useState("")
+  const tagDataId = useRef(Object.keys(tagData).length+1)
+
+  //계절 클릭 감지
+  const handleSeasonClick = (seasonValue) => {
+    copySeasonObject[seasonValue]['select'] = !copySeasonObject[seasonValue]['select'];
+    console.log('copySeasonObject', copySeasonObject)
+    setSeason(copySeasonObject);
+    setFinalSeasonArray(
+      Object.keys(season).filter(
+      item => season[item]['select'] === true
+    ))
+  }
 
   //포켓에 넣기 버튼
   const handlesubmit = () => {
-    onCreate(item_name, memo, season);
+
+    onCreate(item_name, memo, finalSeasonArray, finalTagArray);
     alert(memo);
     navigation.navigate("Home", { name: "Home" });
   };
   
+  //태그 생성 함수
   const onCreateTag = (title) => {
-    const newTag = {title, id: tagDataId.current};
+    const newTag = {title, id: tagDataId.current, 'select': false};
     tagDataId.current += 1;
     setTagData([...tagData, newTag]);
-    setSelect([...select, false])
+    setTagSelect([...tagSelect, false])
   };
-
+  
   return (
     <ScrollView style={styles.container}>
       <View style={styles.back}>
@@ -81,32 +97,33 @@ export default function PlusItem({ onCreate, navigation }) {
       <View style={styles.season}>
         <Text>계절</Text>
         <View style={styles.seasonbox}>
-          <View>
+        <View>
+                    
             <SeasonItem
-              season={"spring"}
+              seasonValue={"spring"}
               onPress={handleSeasonClick}
-              isSelected={season === "spring"}
+              isSelected={season["spring"]['select']}
             />
           </View>
           <View>
             <SeasonItem
-              season={"summer"}
+              seasonValue={"summer"}
               onPress={handleSeasonClick}
-              isSelected={season === "summer"}
+              isSelected={season['summer']['select']}
             />
           </View>
           <View>
             <SeasonItem
-              season={"fall"}
+              seasonValue={"fall"}
               onPress={handleSeasonClick}
-              isSelected={season === "fall"}
+              isSelected={season['fall']['select']}
             />
           </View>
           <View>
             <SeasonItem
-              season={"winter"}
+              seasonValue={"winter"}
               onPress={handleSeasonClick}
-              isSelected={season === "winter"}
+              isSelected={season['winter']['select']}
             />
           </View>
         </View>
@@ -118,7 +135,10 @@ export default function PlusItem({ onCreate, navigation }) {
         <View style={{flexDirection: 'row', flexWrap: 'wrap'}}>
         <View style={styles.tagContainer}>
           {tagData.map((item, index) => (
-            <TagItem key={index} title={item.title} id={item.id} type={'default'} select={select} setSelect={setSelect} copyArray={copyArray} onCreateTag={onCreateTag}/>
+            <TagItem key={index} title={item.title} id={item.id} type={'default'} 
+            tagData={tagData} setTagData={setTagData} 
+            finalTagArray={finalTagArray} setFinalTagArray={setFinalTagArray}
+            copyTagData={copyTagData} onCreateTag={onCreateTag} />
           ))}
         </View>
         <TagItem title={'태그 추가'} type={'adding'} text={text} setText={setText}/>
@@ -189,14 +209,7 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     justifyContent: "space-around",
   },
-  spring: { width: 50, height: 50 },
-  srping_touch: { borderRadius: 30, padding: 10 },
-  summer: { width: 50, height: 50 },
-  summer_touch: { borderRadius: 30, padding: 10 },
-  fall: { width: 50, height: 50 },
-  fall_touch: { borderRadius: 30, padding: 10 },
-  winter: { width: 50, height: 50 },
-  winter_touch: { borderRadius: 30, padding: 10 },
+  
   buyWhy: {
     minHeight: 210,
     maxHeight: 400,

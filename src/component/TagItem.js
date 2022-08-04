@@ -7,22 +7,43 @@ import {
   TextInput
 } from "react-native";
 
-const TagItem = ({title, id, type, select, setSelect, copyArray, text, setText, onCreateTag}) => {
+const TagItem = ({title, id, type, 
+  tagData, setTagData,finalTagArray, setFinalTagArray,
+  copyTagData, text, setText, onCreateTag}) => {
+    
+  //태그 클릭 감지
+  const handleTagClick = (title) => {
+    console.log(copyTagObject[title].select)
+    // copyTagObject[title]['select'] = !copyTagObject[title]['select'];
+    // console.log('copyTagObject', copyTagObject)
+    // setSeason(copyTagObject);
+    // setFinalTagArray(
+    //   Object.keys(tagData).filter(
+    //   item => tagData[title]['select'] === true
+    // ))
+  }
+
+  let fromIndex = arr.indexOf(1);
+  while(fromIndex != -1)  {
+  
+  fromIndex = arr.indexOf(1, fromIndex+1);
+}
 
   return (
     <View>
       {type === "default" ? (
         <TouchableOpacity
           onPress={() => {
-            copyArray[id-1] = !copyArray[id-1]
-            setSelect(copyArray)
-            }
-          }
+            copyTagData[id-1].select = !copyTagData[id-1].select
+            setTagData(copyTagData)
+            console.log('잘되네~')
+            
+          }}
           
           style={[
             styles.tag, 
-            {backgroundColor: (select[id-1]==true) ? 'yellow':'white'}
-        ]}at
+            {backgroundColor: (tagData[id-1].select===true) ? 'yellow':'white'}
+        ]}
         >
           <Text style={[styles.tagText, styles.defaultTag]}>{title}</Text>
         </TouchableOpacity>

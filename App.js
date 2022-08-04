@@ -18,18 +18,20 @@ export default function App() {
   const dataId = useRef(0);
 
   const [data, setData] = useState([]);
-  const onCreate = (item_name, memo, season, tag) => {
+  const onCreate = (item_name, memo, finalSeasonArray, finalTagArray) => {
     const created_date = new Date().getTime();
     const newItem = {
       item_name,
       memo,
-      season,
+      finalSeasonArray,
+      finalTagArray,
       created_date,
       id: dataId.current,
     };
     dataId.current += 1;
     setData([newItem, ...data]);
   };
+  
 
   return (
     <NavigationContainer>
