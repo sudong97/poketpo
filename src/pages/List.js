@@ -8,12 +8,23 @@ import {
   ScrollView,
 } from "react-native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { NavigationContainer } from "@react-navigation/native";
 import { theme } from "../../color";
 import ListItem from "../component/ListItem";
-
 export default function List({ navigation, route, diaryList }) {
+  useEffect(() => {
+    axios
+      .get(
+        "https://v5hdg0fow7.execute-api.ap-northeast-2.amazonaws.com/Dev/pockets/test"
+      )
+      .then((response) => {
+        setApi(response.data.pockets);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  });
   return (
     <ScrollView style={styles.scrollContainer}>
       <View style={styles.container}>
@@ -22,7 +33,12 @@ export default function List({ navigation, route, diaryList }) {
             <Text>아이템 리스트</Text>
           </View>
           <View style={styles.main}>
-            <Text>총 {diaryList.length}개의 아이템이 있습니다.</Text>
+            <Text>총 {diaryList.length + 3}개의 아이템이 있습니다.</Text>
+            <View>
+              {api.map((post) => (
+                <Text>{post.title}</Text>
+              ))}
+            </View>
             <View>
               {diaryList.map((it) => (
                 <ListItem key={it.id} {...it} />
@@ -125,5 +141,8 @@ const styles = StyleSheet.create({
   },
   setting_txt: {
     color: theme.tc,
+  },
+  camera: {
+    flex: 1,
   },
 });

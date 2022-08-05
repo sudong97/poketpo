@@ -9,6 +9,7 @@ export default function List({
   memo,
   created_date,
   season,
+  poket,
 }) {
   return (
     <View>

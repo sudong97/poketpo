@@ -1,4 +1,5 @@
 import { View, StyleSheet, Button, Text } from "react-native";
+import { accessibilityProps } from "react-native-web/dist/cjs/modules/forwardedProps";
 
 const PlusItemHeader = ({ navigation }) => {
   return (
@@ -18,8 +19,8 @@ const PlusItemHeader = ({ navigation }) => {
 };
 
 const styles = StyleSheet.create({
-  box: { flex: 1, flexDirection: "row" },
-  back_button: { flex: 1 },
+  box: { flex: 1, flexDirection: "row", position: "relative" },
+  back_button: { position: "absolute", zIndex: 50 },
   main: {
     flex: 5,
     justifyContent: "center",

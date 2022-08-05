@@ -140,6 +140,10 @@ export default function PlusItem({ onCreate, navigation }) {
       </View>
       <View style={styles.picture}>
         <Text>사진</Text>
+        <Button
+          title="사진 추가하기"
+          onPress={() => navigation.navigate("Picture", { name: "Picture" })}
+        />
       </View>
 
       <View style={styles.submitbox}>
