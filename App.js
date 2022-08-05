@@ -21,7 +21,13 @@ export default function App() {
   const dataId = useRef(0);
 
   const [data, setData] = useState([]);
-  const onCreate = (item_name, memo, finalSeasonArray, finalTagArray) => {
+  const onCreate = (
+    item_name,
+    memo,
+    finalSeasonArray,
+    finalTagArray,
+    poket
+  ) => {
     const created_date = new Date().getTime();
     const newItem = {
       item_name,

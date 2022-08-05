@@ -12,7 +12,10 @@ import React, { useState, useEffect } from "react";
 import { NavigationContainer } from "@react-navigation/native";
 import { theme } from "../../color";
 import ListItem from "../component/ListItem";
+import axios from "axios";
+
 export default function List({ navigation, route, diaryList }) {
+  const [api, setApi] = useState([]);
   useEffect(() => {
     axios
       .get(
