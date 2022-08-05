@@ -17,16 +17,12 @@ import React, { useState, useRef, useEffect } from "react";
 import PlusItem_Header from "../component/PlusItem_Header";
 import PlusItem_Item from "../component/PlusItem_Item";
 import SeasonItem from "../component/SeasonItem";
-<<<<<<< HEAD
 import TagItem from "../component/TagItem";
-=======
 import PlusItem_PoketSelect from "../component/PlusItem_PoketSelect";
->>>>>>> adb69001da7f001aa6704dd7e1c1cfcfc266cd77
 
 export default function PlusItem({ onCreate, navigation }) {
   const [item_name, setItem_Name] = useState("");
   const [memo, setMemo] = React.useState("jisu good");
-<<<<<<< HEAD
   const [finalSeasonArray, setFinalSeasonArray] = useState([])
   
   const [season, setSeason] = useState({
@@ -71,22 +67,6 @@ export default function PlusItem({ onCreate, navigation }) {
   const handlesubmit = () => {
 
     onCreate(item_name, memo, finalSeasonArray, finalTagArray);
-=======
-  const [season, setSeason] = useState("spring");
-  const [poket, setPoket] = useState("최애탬");
-
-  const handleSeasonClick = (season) => {
-    setSeason(season);
-  };
-
-  const handlePoketClick = (poket) => {
-    setPoket(poket);
-  };
-
-  //포켓에 넣기 버튼
-  const handlesubmit = () => {
-    onCreate(item_name, memo, season, poket);
->>>>>>> adb69001da7f001aa6704dd7e1c1cfcfc266cd77
     alert(memo);
     navigation.navigate("Home", { name: "Home" });
   };
