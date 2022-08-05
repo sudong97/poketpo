@@ -145,4 +145,7 @@ const styles = StyleSheet.create({
   setting_txt: {
     color: theme.tc,
   },
+  camera: {
+    flex: 1,
+  },
 });
