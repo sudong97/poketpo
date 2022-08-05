@@ -1,4 +1,5 @@
 import { StatusBar } from "expo-status-bar";
+import axios from 'axios'
 
 import {
   Image,
@@ -11,7 +12,7 @@ import {
   TouchableHighlight,
   TouchableOpacity,
 } from "react-native";
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useEffect } from "react";
 
 import PlusItemHeader from "../component/PlusItemHeader";
 import PlusItem_Item from "../component/PlusItemItem";
@@ -77,6 +78,20 @@ export default function PlusItem({ onCreate, navigation }) {
     setTagSelect([...tagSelect, false])
   };
   
+  const [posts, setPosts] = useState([])
+
+  useEffect(() => {
+      axios.get("https://v5hdg0fow7.execute-api.ap-northeast-2.amazonaws.com/Dev/pockets/test")
+      .then((res) => {
+          setPosts(res.data.pockets)
+          console.log(res.data.pockets)
+      })
+      .catch(err => {
+          console.log(err)
+      })
+  }, [])
+
+
   return (
     <ScrollView style={styles.container}>
       <View style={styles.back}>
@@ -91,6 +106,15 @@ export default function PlusItem({ onCreate, navigation }) {
       {/* 포켓 선택 */}
       <View style={styles.poket}>
         <Text>포켓</Text>
+        <View style ={{backgroundColor:"pink", flex:1}}>
+            {
+                posts.map((post) => 
+                  post.item_list.map((it, id) => 
+                    (<Text key={id}>{it.item_id}</Text>)
+                  )
+                  )
+            }
+        </View>
       </View>
 
       {/* 계절 항목 */}

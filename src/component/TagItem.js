@@ -23,11 +23,6 @@ const TagItem = ({title, id, type,
     // ))
   }
 
-  let fromIndex = arr.indexOf(1);
-  while(fromIndex != -1)  {
-  
-  fromIndex = arr.indexOf(1, fromIndex+1);
-}
 
   return (
     <View>
