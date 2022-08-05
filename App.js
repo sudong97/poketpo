@@ -10,7 +10,10 @@ import List from "./src/pages/List";
 import PlusItem from "./src/pages/PlusItem";
 import Setting from "./src/pages/Setting";
 import Backup from "./src/pages/Backup";
+import Picture from "./src/pages/Picture";
 import EditHome from "./src/pages/EditHome";
+import EditItem from "./src/pages/EditItem";
+import EditPoket from "./src/pages/EditPoket";
 
 export default function App() {
   const Stack = createNativeStackNavigator();
@@ -25,6 +28,7 @@ export default function App() {
       memo,
       finalSeasonArray,
       finalTagArray,
+      poket,
       created_date,
       id: dataId.current,
     };
@@ -42,6 +46,7 @@ export default function App() {
         <Stack.Group screenOptions={{ headerStyle: { presentation: "modal" } }}>
           <Stack.Screen name="OnBoarding" component={OnBoarding} />
           <Stack.Screen name="Home" component={Home} />
+          <Stack.Screen name="Picture" component={Picture} />
           <Stack.Screen
             name="List"
             children={({ navigation }) => (
@@ -57,6 +62,8 @@ export default function App() {
           <Stack.Screen name="Setting" component={Setting} />
           <Stack.Screen name="EditHome" component={EditHome} />
           <Stack.Screen name="Backup" component={Backup} />
+          <Stack.Screen name="EditItem" component={EditItem} />
+          <Stack.Screen name="EditPoket" component={EditPoket} />
         </Stack.Group>
       </Stack.Navigator>
     </NavigationContainer>

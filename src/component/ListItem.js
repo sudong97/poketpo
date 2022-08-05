@@ -5,6 +5,7 @@ export default function List({
   route,
   id,
   item_name,
+  poket,
   memo,
   created_date,
   finalSeasonArray,
@@ -16,6 +17,7 @@ export default function List({
         <Text>item 이름: {item_name}</Text>
         <Text>계절: {finalSeasonArray}</Text>
         <Text>태그: {finalTagArray.title}</Text>
+        <Text>poket 이름: {poket}</Text>
         <Text>관련 메모: {memo}</Text>
         <Text>날짜: {new Date(created_date).toLocaleDateString()}</Text>
       </View>

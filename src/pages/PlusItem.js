@@ -14,14 +14,19 @@ import {
 } from "react-native";
 import React, { useState, useRef, useEffect } from "react";
 
-import PlusItemHeader from "../component/PlusItemHeader";
-import PlusItem_Item from "../component/PlusItemItem";
+import PlusItem_Header from "../component/PlusItem_Header";
+import PlusItem_Item from "../component/PlusItem_Item";
 import SeasonItem from "../component/SeasonItem";
+<<<<<<< HEAD
 import TagItem from "../component/TagItem";
+=======
+import PlusItem_PoketSelect from "../component/PlusItem_PoketSelect";
+>>>>>>> adb69001da7f001aa6704dd7e1c1cfcfc266cd77
 
 export default function PlusItem({ onCreate, navigation }) {
   const [item_name, setItem_Name] = useState("");
   const [memo, setMemo] = React.useState("jisu good");
+<<<<<<< HEAD
   const [finalSeasonArray, setFinalSeasonArray] = useState([])
   
   const [season, setSeason] = useState({
@@ -66,6 +71,22 @@ export default function PlusItem({ onCreate, navigation }) {
   const handlesubmit = () => {
 
     onCreate(item_name, memo, finalSeasonArray, finalTagArray);
+=======
+  const [season, setSeason] = useState("spring");
+  const [poket, setPoket] = useState("최애탬");
+
+  const handleSeasonClick = (season) => {
+    setSeason(season);
+  };
+
+  const handlePoketClick = (poket) => {
+    setPoket(poket);
+  };
+
+  //포켓에 넣기 버튼
+  const handlesubmit = () => {
+    onCreate(item_name, memo, season, poket);
+>>>>>>> adb69001da7f001aa6704dd7e1c1cfcfc266cd77
     alert(memo);
     navigation.navigate("Home", { name: "Home" });
   };
@@ -95,18 +116,22 @@ export default function PlusItem({ onCreate, navigation }) {
   return (
     <ScrollView style={styles.container}>
       <View style={styles.back}>
-        <PlusItemHeader navigation={navigation} />
+        <PlusItem_Header navigation={navigation} />
       </View>
 
       {/* 아이템 등록  */}
       <View>
-        <PlusItem_Item item_name={item_name} setItem_Name={setItem_Name} />
+        <PlusItem_Item
+          navigation={navigation}
+          item_name={item_name}
+          setItem_Name={setItem_Name}
+        />
       </View>
 
       {/* 포켓 선택 */}
       <View style={styles.poket}>
-        <Text>포켓</Text>
-        <View style ={{backgroundColor:"pink", flex:1}}>
+        <View style={styles.poketHed}>
+        {/* <View style ={{backgroundColor:"pink", flex:1}}>
             {
                 posts.map((post) => 
                   post.item_list.map((it, id) => 
@@ -114,6 +139,33 @@ export default function PlusItem({ onCreate, navigation }) {
                   )
                   )
             }
+        </View> */}
+          <Text>포켓</Text>
+          <TouchableOpacity
+            onPress={() =>
+              navigation.navigate("EditPoket", { name: "EditPoket" })
+            }
+          >
+            <Image source={require("../../assets/images/editMark.png")} />
+          </TouchableOpacity>
+        </View>
+
+        <View>
+          <PlusItem_PoketSelect
+            poket={"최애탬"}
+            onPress={handlePoketClick}
+            isSelected={poket === "최애탬"}
+          />
+          <PlusItem_PoketSelect
+            poket={"고민고민"}
+            onPress={handlePoketClick}
+            isSelected={poket === "고민고민"}
+          />
+          <PlusItem_PoketSelect
+            poket={"마요르카"}
+            onPress={handlePoketClick}
+            isSelected={poket === "마요르카"}
+          />
         </View>
       </View>
 
@@ -122,7 +174,7 @@ export default function PlusItem({ onCreate, navigation }) {
         <Text>계절</Text>
         <View style={styles.seasonbox}>
         <View>
-                    
+        
             <SeasonItem
               seasonValue={"spring"}
               onPress={handleSeasonClick}
@@ -184,6 +236,10 @@ export default function PlusItem({ onCreate, navigation }) {
       </View>
       <View style={styles.picture}>
         <Text>사진</Text>
+        <Button
+          title="사진 추가하기"
+          onPress={() => navigation.navigate("Picture", { name: "Picture" })}
+        />
       </View>
 
       <View style={styles.submitbox}>
@@ -211,12 +267,18 @@ const styles = StyleSheet.create({
     flexDirection: "row",
   },
   poket: {
-    height: 180,
+    height: 220,
     backgroundColor: "white",
     borderRadius: 30,
     marginVertical: 10,
     padding: 20,
     paddingHorizontal: 30,
+    justifyContent: "space-around",
+  },
+  poketHed: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    marginBottom: 5,
   },
   season: {
     flex: 1,
