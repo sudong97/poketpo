@@ -65,7 +65,7 @@ export default function PlusItem({ onCreate, navigation }) {
 
   //포켓에 넣기 버튼
   const handlesubmit = () => {
-    onCreate(item_name, memo, finalSeasonArray, finalTagArray);
+    onCreate(item_name, memo, poket, finalSeasonArray, finalTagArray);
     alert(memo);
     navigation.navigate("Home", { name: "Home" });
   };
