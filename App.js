@@ -12,8 +12,8 @@ import Setting from "./src/pages/Setting";
 import Backup from "./src/pages/Backup";
 import Picture from "./src/pages/Picture";
 import EditHome from "./src/pages/EditHome";
-import EditItem from "./src/pages/EditItem";
-import EditPoket from "./src/pages/EditPoket";
+import { EditItem } from "./src/pages/EditItem";
+import { EditPoket } from "./src/pages/EditPoket";
 
 export default function App() {
   const Stack = createNativeStackNavigator();
@@ -35,7 +35,6 @@ export default function App() {
     dataId.current += 1;
     setData([newItem, ...data]);
   };
-  
 
   return (
     <NavigationContainer>
